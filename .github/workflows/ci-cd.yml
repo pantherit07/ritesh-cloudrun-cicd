@@ -24,7 +24,7 @@ jobs:
       - run: npm install
       - run: npm test
 
-      - name: Authentication
+      - name: Account authentication
         uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
