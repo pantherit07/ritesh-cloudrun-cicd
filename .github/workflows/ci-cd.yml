@@ -30,9 +30,7 @@ jobs:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
       
       - name: Configure Docker Authentication
-        run: |
-          echo ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} | gcloud auth activate-service-account --key-file=-
-          gcloud auth configure-docker ${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev --quiet
+        run: gcloud auth configure-docker ${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev --quiet
 
       - name: Build and Push Container
         run: |
