@@ -34,13 +34,14 @@ jobs:
 
       - name: Build and Push Container
         run: |
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ritesh-cloudrun-cicd
+          IMAGE_NAME=${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/ritesh-cloudrun-cicd
+          # IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ritesh-cloudrun-cicd
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
       
       - name: Deploy to Cloud Run
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          image: 'gcr.io/${{ secrets.GCP_PROJECT_ID }}/ritesh-cloudrun-cicd'
+          image: ${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/ritesh-cloudrun-cicd
           service: 'ritesh-cloudrun-cicd'
           region: 'us-central1'
