@@ -43,8 +43,9 @@ jobs:
           docker push $IMAGE_NAME
 
       - name: Deploy to Cloud Run
-        uses: 'google-github-actions/deploy-cloudrun@v2'
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
-          image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd
           service: 'ritesh-cloudrun-cicd'
+          image: 'us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest'
           region: 'us-central1'
+          allow-unauthenticated: true
