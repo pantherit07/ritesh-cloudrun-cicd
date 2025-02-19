@@ -32,11 +32,21 @@ jobs:
       - name: Configure Docker Authentication
         run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
 
-      - name: Build and Push Container
-        run: docker build -t node-cicd:latest .
-      - name: push image
-        # run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-cicd:latest
-        run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+      # - name: Build and Push Container
+      #   run: docker build -t node-cicd:latest .
+      # - name: push image
+      #   # run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-cicd:latest
+      #   run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+
+      - name: Build Docker Image
+        run: |
+          IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+          docker build -t $IMAGE_NAME .
+
+      - name: Push Docker Image
+        run: |
+          IMAGE_NAME=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+          docker push $IMAGE_NAME
 
       # - name: Deploy to Cloud Run
       #   uses: 'google-github-actions/deploy-cloudrun@v2'
