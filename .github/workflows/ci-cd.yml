@@ -48,3 +48,11 @@ jobs:
           image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
           service: "cloudrun-app"
           region: us-central1
+
+      - name: deploy to cloud run
+        run: |
+          gcloud run deploy cloudrun-app \
+          --image=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/my-docker-repo/node-cicd:latest \
+          --region=us-central1 \
+          --platform=managed \
+          --allow-unauthenticated
