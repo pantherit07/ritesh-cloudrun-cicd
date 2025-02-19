@@ -30,17 +30,17 @@ jobs:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
       
       - name: Configure Docker Authentication
-        run: gcloud auth configure-docker ${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev --quiet
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
 
       - name: Build and Push Container
-        run: |
-          # IMAGE_NAME=${{ secrets.GCP_PROJECT_ID }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/ritesh-cloudrun-cicd
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd
-      
-      - name: Deploy to Cloud Run
-        uses: 'google-github-actions/deploy-cloudrun@v2'
-        with:
-          image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd
-          service: 'ritesh-cloudrun-cicd'
-          region: 'us-central1'
+        run: docker build -t node-cicd:latest .
+        
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-cicd:latest
+        run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+
+      # - name: Deploy to Cloud Run
+      #   uses: 'google-github-actions/deploy-cloudrun@v2'
+      #   with:
+      #     image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd
+      #     service: 'ritesh-cloudrun-cicd'
+      #     region: 'us-central1'
