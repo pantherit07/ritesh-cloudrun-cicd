@@ -35,8 +35,8 @@ jobs:
       - name: Build and Push Container
         run: docker build -t node-cicd:latest .
       - name: push image
-        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-cicd:latest
-        # run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
+        # run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/node-cicd:latest
+        run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
 
       # - name: Deploy to Cloud Run
       #   uses: 'google-github-actions/deploy-cloudrun@v2'
