@@ -46,7 +46,5 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           image: us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-docker-repo/node-cicd:latest
-          name: "cloudrun-app"
-          location: us-central1
-          project: ${{ secrets.GCP_PROJECT_ID }}
-          platform: managed
+          service: "cloudrun-app"
+          region: us-central1
