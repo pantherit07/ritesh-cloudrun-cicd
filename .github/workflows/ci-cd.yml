@@ -30,6 +30,9 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
       
+      - name: Configure Docker Authentication
+        run: gcloud auth configure-docker --quiet
+        
       - name: Build and Push Container
         run: |
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/ritesh-cloudrun-cicd
